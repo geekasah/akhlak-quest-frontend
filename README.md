@@ -188,9 +188,6 @@ When contributing to this project:
 3. Test your changes thoroughly
 4. Submit a pull request with a clear description
 
-## License
-
-[Add your license here]
 
 ## Support
 

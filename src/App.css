@@ -1,0 +1,913 @@
+:root {
+  --primary-red: #DC143C;
+  --secondary-red: #8B0000;
+  --light-red: #FFB6C1;
+  --primary-yellow: #FFD700;
+  --secondary-yellow: #FFA500;
+  --white: #FFFFFF;
+  --off-white: #F8F8F8;
+  --dark-gray: #2C2C2C;
+  --light-gray: #E0E0E0;
+  --success: #28a745;
+  --failure: #dc3545;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; background: var(--white); color: var(--dark-gray); line-height: 1.6; }
+.App { min-height: 100vh; }
+
+.main-menu { 
+  min-height: 100vh; 
+  display: flex; 
+  flex-direction: column;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.menu-buttons-container {
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 50px;
+  height: 200px;
+}
+
+.image-button {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+
+  cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  width: 300px;
+  height: 150px;
+
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+  transition: all 0.2s ease;
+}
+
+.image-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.image-button:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
+}
+
+.image-button.clicked {
+  transform: scale(0.95);
+}
+
+.image-button.bottom-left {
+  align-self: flex-end;
+}
+
+.image-button.bottom-center {
+  align-self: flex-end;
+  margin: 0 auto;
+}
+
+.image-button.bottom-right {
+  align-self: flex-end;
+}
+
+.footer { text-align: center; padding: 20px; color: var(--light-gray); font-size: 0.9rem; }
+
+.page-header { background: linear-gradient(135deg, var(--primary-red), var(--secondary-red)); padding: 30px 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 30px; }
+.page-header h1 { font-size: 2rem; color: var(--white); margin-bottom: 5px; }
+.page-header p { font-size: 1rem; color: var(--primary-yellow); }
+
+.back-button { background: var(--light-gray); color: var(--dark-gray); border: none; padding: 10px 25px; font-size: 1rem; border-radius: 6px; cursor: pointer; transition: all 0.3s ease; margin: 20px; }
+.back-button:hover { background: var(--dark-gray); color: var(--white); }
+
+.content-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+.form-container { background: var(--off-white); padding: 40px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 600px; margin: 40px auto; }
+.form-group { margin-bottom: 25px; }
+.form-group label { display: block; font-weight: bold; color: var(--primary-red); margin-bottom: 8px; font-size: 1.1rem; }
+.form-group input, .form-group select { width: 100%; padding: 12px; font-size: 1rem; border: 2px solid var(--light-gray); border-radius: 6px; transition: border-color 0.3s; }
+.form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary-red); }
+
+.primary-button { background: var(--primary-red); color: var(--white); border: none; padding: 15px 40px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+.primary-button:hover { background: var(--secondary-red); transform: translateY(-2px); box-shadow: 0 5px 10px rgba(0,0,0,0.3); }
+.primary-button:disabled { background: var(--light-gray); cursor: not-allowed; transform: none; }
+
+.secondary-button { background: var(--light-gray); color: var(--dark-gray); border: none; padding: 12px 30px; font-size: 1rem; border-radius: 6px; cursor: pointer; transition: all 0.3s ease; }
+.secondary-button:hover { background: var(--dark-gray); color: var(--white); }
+
+.mission-card { background: var(--off-white); border: 3px solid var(--primary-red); border-radius: 10px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.mission-card h2 { color: var(--primary-red); font-size: 1.8rem; margin-bottom: 10px; }
+.mission-card .description { font-style: italic; color: var(--dark-gray); margin-bottom: 15px; }
+.mission-card .slots { color: var(--secondary-yellow); font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; }
+.mission-card .stats { color: var(--dark-gray); font-size: 0.95rem; }
+
+.team-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0; }
+.team-panel { background: var(--off-white); border: 3px solid var(--primary-red); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.team-panel.team2 { border-color: var(--secondary-red); }
+.team-header { background: var(--primary-red); color: var(--white); padding: 15px; text-align: center; font-size: 1.3rem; font-weight: bold; }
+.team-panel.team2 .team-header { background: var(--secondary-red); }
+.hero-list { padding: 20px; max-height: 400px; overflow-y: auto; }
+.hero-item { background: var(--white); border: 1px solid var(--light-gray); border-radius: 6px; padding: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; transition: all 0.3s; }
+.hero-item:hover { border-color: var(--primary-red); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.hero-item input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary-yellow); }
+.hero-info { flex: 1; margin-left: 15px; }
+.hero-name { font-weight: bold; color: var(--dark-gray); font-size: 1.05rem; margin-bottom: 5px; }
+.hero-stats { font-size: 0.85rem; color: var(--dark-gray); }
+
+.results-container { text-align: center; padding: 40px; }
+.results-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 40px 0; }
+.result-panel { background: var(--off-white); border: 4px solid var(--primary-red); border-radius: 10px; padding: 40px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+.result-panel h3 { color: var(--primary-red); font-size: 1.5rem; margin-bottom: 20px; }
+.result-status { font-size: 2rem; font-weight: bold; margin: 20px 0; }
+.result-status.success { color: var(--success); }
+.result-status.failure { color: var(--failure); }
+.score-display { background: var(--primary-yellow); border: 4px solid var(--secondary-yellow); border-radius: 10px; padding: 25px; margin: 30px auto; max-width: 500px; }
+.score-display h3 { color: var(--dark-gray); font-size: 1.8rem; font-weight: bold; }
+
+.winner-display { background: var(--primary-red); border: 5px solid var(--secondary-red); border-radius: 15px; padding: 50px; margin: 40px auto; max-width: 600px; text-align: center; box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
+.winner-display h2 { color: var(--white); font-size: 1.3rem; margin-bottom: 15px; }
+.winner-display h1 { color: var(--white); font-size: 3rem; font-weight: bold; text-shadow: 3px 3px 6px rgba(0,0,0,0.3); }
+
+.data-table { width: 100%; background: var(--white); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin: 20px 0; }
+.data-table thead { background: var(--primary-red); color: var(--white); }
+.data-table th { padding: 15px; text-align: left; font-weight: bold; }
+.data-table tbody tr { border-bottom: 1px solid var(--light-gray); transition: background 0.3s; }
+.data-table tbody tr:nth-child(even) { background: var(--off-white); }
+.data-table tbody tr:hover { background: var(--light-red); }
+.data-table td { padding: 12px 15px; }
+
+.tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 3px solid var(--light-gray); }
+.tab { background: transparent; border: none; padding: 12px 25px; font-size: 1.1rem; font-weight: bold; color: var(--dark-gray); cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; margin-bottom: -3px; }
+.tab:hover { color: var(--primary-red); }
+.tab.active { color: var(--primary-red); border-bottom-color: var(--primary-red); }
+.tab-content { padding: 20px 0; }
+
+.loading { text-align: center; padding: 60px 20px; }
+.spinner { border: 5px solid var(--light-gray); border-top: 5px solid var(--primary-red); border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin: 20px auto; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+.card { background: var(--off-white); border: 2px solid var(--light-gray); border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); transition: all 0.3s; }
+.card:hover { border-color: var(--primary-red); box-shadow: 0 4px 10px rgba(0,0,0,0.12); }
+.card h3 { color: var(--primary-red); margin-bottom: 15px; font-size: 1.3rem; }
+
+@media (max-width: 768px) {
+  .title { font-size: 2rem; }
+  .team-panels, .results-panels { grid-template-columns: 1fr; }
+  .menu-button { font-size: 1rem; padding: 15px 20px; }
+  .form-container { padding: 25px; }
+  .data-table { font-size: 0.85rem; }
+  .data-table th, .data-table td { padding: 10px; }
+  
+  .new-game-board {
+    max-width: 90vw;
+    padding: 40px 30px;
+  }
+  
+  .start-game-button {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .back-button {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* New Game Page Styles */
+.new-game-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.new-game-board {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 600 / 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+  box-sizing: border-box;
+}
+
+.new-game-form {
+  width: 50%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+  margin-top: 225px;
+  align-items: center;
+  
+  
+}
+
+.new-game-form .form-group {  display: flex;
+  margin-bottom: 15px;
+  width: 100%;
+  align-items: center;
+  padding-top: 10px;
+  margin-left: 100px;
+}
+
+.new-game-form .form-group #team1, .new-game-form .form-group #team2, .new-game-form .form-group #rounds {
+  width: 85%;
+  height: 55px;
+}
+
+.new-game-form .form-group label {
+  display: block;
+  font-weight: bold;
+  color: var(--dark-gray);
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+
+
+.new-game-form .form-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1.5rem;
+  border: 2px solid var(--light-gray);
+  border-radius: 6px;
+  transition: border-color 0.3s;
+  background-color: #D9D9D9;
+  font-family: 'Pixelify Sans', monospace;
+}
+
+.new-game-form .form-group input:focus {
+  outline: none;
+  border-color: var(--primary-red);
+}
+
+.error-message {
+  color: var(--failure);
+  margin: 10px 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+.new-game-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 0px;
+  padding: 0px;
+}
+
+.svg-button {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.svg-button:hover:not(:disabled) {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+.svg-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.svg-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.start-game-button {
+  margin-top: -60px;
+  width: 350px;
+  height: 170px;
+}
+
+.back-button {
+  width: 100px;
+  height: 100px;
+}
+
+.loading-text {
+  color: var(--white);
+  font-weight: bold;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* GamePlay Styles */
+.gameplay-container {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 20px;
+  font-family: 'Pixelify Sans', monospace;
+}
+
+.gameplay-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.round-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.round-title {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 5rem;
+  color: #A1BBCA;
+  text-shadow: -3px -3px 0 #292734, 3px -3px 0 #292734, -3px 3px 0 #292734, 3px 3px 0 #292734;
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+
+.score-text {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 1.8rem;
+  color: #292734;
+  margin-top: -30px;
+}
+
+.mission-board {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  max-width: 900px;
+  height: 500px;
+  margin: 0 auto 40px;
+  margin-top: -40px;
+  display: flex;
+  align-items: top;
+  justify-content: center;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.mission-content {
+  width: 90%;
+  text-align: top;
+  margin-left: 50px;
+}
+
+.mission-name {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 3rem;
+  color: #292734;
+  margin: 70px 0 0px 0;
+  font-weight: bold;
+}
+
+.mission-description {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 2rem;
+  color: #292734;
+  margin: 10px 0;
+}
+
+.mission-slots {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 2rem;
+  color: #292734;
+  margin: -25px 0 0 0;
+  font-weight: bold;
+}
+
+.gameplay-team-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin: 60px 0;
+}
+
+.gameplay-team-panel {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+  padding: 30px 20px;
+  box-sizing: border-box;
+}
+
+.gameplay-team-name {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 2rem;
+  color: #292734;
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-left: 45px;
+}
+
+.gameplay-hero-list {
+  flex: 1;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 500px;
+  height: 100px;
+  margin-left: 20px;
+}
+
+.gameplay-hero-item {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  border-radius: 6px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s;
+  min-height: 60px;
+  height: 70px;
+  box-sizing: border-box;
+}
+
+.gameplay-hero-item:hover {
+  transform: scale(1.02);
+}
+
+.gameplay-hero-item input[type="checkbox"] {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  accent-color: var(--primary-yellow);
+  margin-left: 70px;
+}
+
+.gameplay-hero-info {
+  flex: 1;
+}
+
+.gameplay-hero-name {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 1.8rem;
+  color: #292734;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.execute-mission-container {
+  text-align: center;
+  margin: 40px 0 0 0 ;
+}
+
+.execute-mission-button {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 300px;
+  height: 100px;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+}
+
+.execute-mission-button:hover:not(:disabled) {
+  transform: scale(1.05);
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
+}
+
+.execute-mission-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.execute-mission-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.gameplay-error {
+  color: var(--failure);
+  text-align: center;
+  margin-top: 20px;
+  font-family: 'Pixelify Sans', monospace;
+  font-weight: bold;
+}
+
+/* GameHistory Styles */
+.game-history-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-image: url('../public/assets/game-history/background.svg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 20px;
+  padding-top: 60px;
+}
+
+.game-history-content {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.game-history-board {
+  width: 100%;
+  max-width: 1200px;
+  background-image: url('../public/assets/game-history/game-history-board.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  aspect-ratio: 1200 / 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 50px;
+  box-sizing: border-box;
+}
+
+.game-history-board:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+.game-history-card {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
+
+.game-info-left {
+  flex: 1;
+  text-align: left;
+  margin-left: 80px;
+}
+
+.game-info-right {
+  flex: 1;
+  text-align: right;
+  margin-right: 80px;
+}
+
+.game-title {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 3rem;
+  color: #292734;
+  margin: 0;
+  font-weight: bold;
+}
+
+.teams-text {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 2rem;
+  color: #292734;
+  margin-top: -20px;
+  margin-bottom: 10px;
+}
+
+.score-text {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 3rem;
+  color: #292734;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.date-text {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 2rem;
+  color: #292734;
+  margin-top: -20px;
+  margin-bottom: 10px;
+}
+
+.no-games-text {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 1.8rem;
+  color: #292734;
+  text-align: center;
+  padding: 60px 20px;
+  margin: 0;
+}
+
+.game-history-back-button {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  background-image: url('../public/assets/game-history/back-button.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 300px;
+  height: 300px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.game-history-back-button:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+.game-history-back-button:active {
+  transform: scale(0.95);
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeIn 0.5s ease-in; }
+
+::-webkit-scrollbar { width: 0px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--primary-red); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: var(--secondary-red); }
+
+/* Heroes & Missions Component Styles */
+.heroes-missions-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('../public/assets/heroes-and-mission/background.svg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 20px;
+  padding-top: 40px;
+}
+
+.heroes-missions-title {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 6rem;
+  color: #A1BBCA;
+  text-shadow: -3px -3px 0 #292734, 3px -3px 0 #292734, -3px 3px 0 #292734, 3px 3px 0 #292734;
+  margin: -40px 0 40px 0;
+  text-align: center;
+}
+
+.heroes-missions-controls {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+  z-index: 10;
+}
+
+.tab-button-heroes,
+.tab-button-mission {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 200px;
+  height: 120px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.tab-button-heroes:hover,
+.tab-button-mission:hover {
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+  transform: scale(1.05);
+}
+
+
+.heroes-missions-content {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-bottom: 0px;
+  align-items: center;
+}
+
+.heroes-mission-card {
+  background-image: url('../public/assets/heroes-and-mission/heroes-mission-board.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  aspect-ratio: 400 / 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.1));
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.heroes-mission-card.hero-card {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.heroes-mission-card.mission-card {
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 0px;
+}
+
+.card-content.hero-content {
+  text-align: left;
+  width: 100%;
+  padding-left: 80px;
+  padding-right: 60px;
+}
+
+.card-content.mission-content {
+  text-align: left;
+  width: 100%;
+  padding-left: 30px;
+  padding-right: 60px;
+}
+
+.heroes-mission-card.hero-card .card-description {
+  display: none;
+}
+
+.heroes-mission-card.mission-card .card-description {
+  display: none;
+}
+
+.heroes-mission-card.hero-card:hover .card-description {
+  display: block;
+}
+
+.heroes-mission-card.mission-card:hover .card-description {
+  display: block;
+}
+
+.heroes-mission-card.hero-card:hover .card-stats {
+  display: none;
+}
+
+.heroes-mission-card.mission-card:hover .card-stats {
+  display: none;
+}
+
+.heroes-mission-card:hover {
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+  transform: scale(1.02);
+}
+
+.card-content {
+  text-align: center;
+  width: 100%;
+}
+
+.card-content.hero-content {
+  text-align: left;
+  width: 100%;
+}
+
+.card-name {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 2rem;
+  color: #292734;
+  font-weight: bold;
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+
+.card-description {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 1rem;
+  color: #292734;
+  margin-bottom: 12px;
+  margin-top: -5px;
+  line-height: 1.4;
+}
+
+.card-stats {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 1rem;
+  color: #292734;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.stat-line {
+  margin: 5px 0;
+}
+
+.back-button-heroes-missions {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  background-image: url('../public/assets/heroes-and-mission/back-button.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 200px;
+  height: 200px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.back-button-heroes-missions:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+.back-button-heroes-missions:active {
+  transform: scale(0.95);
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
